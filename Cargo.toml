@@ -1,0 +1,22 @@
+[package]
+name = "test_trie"
+version = "0.1.0"
+edition = "2018"
+
+# See more keys and their definitions at https://doc.rust-lang.org/cargo/reference/manifest.html
+
+[dependencies]
+trie-root = { version = "0.16.0", default-features = false }
+trie-db = { version = "0.22.2", default-features = false }
+hash-db = { version = "0.15.2", default-features = false }
+codec = { package = "parity-scale-codec", version = "2.0.0", default-features = false }
+sp-core = {version = '3.0.0'}
+hash256-std-hasher = { version = "0.15.2", default-features = false }
+hex = {version = '0.4'}
+memory-db = { version = "0.26.0", default-features = false }
+
+[dev-dependencies]
+#trie-bench = "0.27.0"
+trie-standardmap = "0.15.2"
+#criterion = "0.3.3"
+hex-literal = "0.3.1"
