@@ -1,69 +1,53 @@
 use std::fmt::Debug;
 use crate::digest::Digest;
 use sp_core::U256;
+use sp_core::H256;
 use std::convert::TryFrom;
-use crate::traits::{Hash as HashT};
+use codec::{Codec, Decode, Encode};
+use crate::BlakeTwo256;
+use hash_db::Hasher;
 
-
-pub struct Header<Number: Copy + Into<U256> + TryFrom<U256>, Hash: HashT> {
+#[derive(Encode, Decode, PartialEq, Eq, Clone)]
+pub struct Header {
     /// The parent hash.
-    pub parent_hash: Hash::Output,
+    pub parent_hash: H256,
     /// The block number.
     #[cfg_attr(
     feature = "std",
     serde(serialize_with = "serialize_number", deserialize_with = "deserialize_number")
     )]
     #[codec(compact)]
-    pub number: Number,
+    pub number: u64,
     /// The state trie merkle root
-    pub state_root: Hash::Output,
+    pub state_root: H256,
     /// The merkle root of the extrinsics.
-    pub extrinsics_root: Hash::Output,
+    pub extrinsics_root: H256,
     /// A chain-specific digest of data useful for light clients or referencing auxiliary data.
     pub digest: Digest,
 }
-/*
 
-pub trait Header
-{
+impl Header {
 
-    /// Creates new header.
-    fn new(
-        number: Self::Number,
-        extrinsics_root: Self::Hash,
-        state_root: Self::Hash,
-        parent_hash: Self::Hash,
-        digest: Digest,
-    ) -> Self;
+    pub fn new(
+       parent_hash: H256,
+        block_number: u64,
+        state_root: H256,
+        extrinsics_root: H256,
+        digest: Digest
+    ) ->Self{
 
-    /// Returns a reference to the header number.
-    fn number(&self) -> &Self::Number;
-    /// Sets the header number.
-    fn set_number(&mut self, number: Self::Number);
+        Self {
+            parent_hash: parent_hash,
+            number: block_number,
+            state_root: state_root,
+            extrinsics_root: extrinsics_root,
+            digest: digest
+        }
+    }
 
-    /// Returns a reference to the extrinsics root.
-    fn extrinsics_root(&self) -> &Self::Hash;
-    /// Sets the extrinsic root.
-    fn set_extrinsics_root(&mut self, root: Self::Hash);
+    pub fn hash(&self) -> H256 {
 
-    /// Returns a reference to the state root.
-    fn state_root(&self) -> &Self::Hash;
-    /// Sets the state root.
-    fn set_state_root(&mut self, root: Self::Hash);
+        Encode::using_encoded(self, BlakeTwo256::hash)
+    }
 
-    /// Returns a reference to the parent hash.
-    fn parent_hash(&self) -> &Self::Hash;
-    /// Sets the parent hash.
-    fn set_parent_hash(&mut self, hash: Self::Hash);
-
-    /// Returns a reference to the digest.
-    fn digest(&self) -> &Digest;
-    /// Get a mutable reference to the digest.
-    fn digest_mut(&mut self) -> &mut Digest;
-
-    /// Returns the hash of the header.
-/*    fn hash(&self) -> Self::Hash {
-        <Self::Hashing as Hash>::hash_of(self)
-    }*/
 }
-*/
