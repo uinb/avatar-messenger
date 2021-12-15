@@ -170,8 +170,6 @@ mod tests {
         );
     }
 
-
-
     #[test]
     fn proof_non_inclusion_works1() {
         let pairs = vec![
@@ -209,6 +207,4 @@ mod tests {
         ).is_ok()
         );
     }
-
-
 }

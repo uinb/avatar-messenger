@@ -63,10 +63,9 @@ fn main() {
   //  0x23e2b18a47227ec401c5c21db407270863dc169bc5195d1431de8da249461d98
     let di1 = DigestItem::decode(&mut from_hex("0x066175726120fe2a471000000000").unwrap().as_ref()).unwrap();
     let di2 = DigestItem::decode(&mut from_hex("0x056175726101015cd4037af4b2e7e5a76e02d3150dc74c72215432668eb2f7bd4e8253126aaa2100e1e985832e89589cf1db1bd2abff713a7f8fda043e898797c2a4d79ba34a87").unwrap().as_ref()).unwrap();
-    let v = vec![di1,di2];
-    let digest = Digest{
-        logs:v
-    };
+    let mut digest = Digest::default();
+    digest.push(di1);
+    digest.push(di2);
     let header = Header::new(H256::from_str("0x54528ec92a68130a96e8ca5dca763c724ce1c30cf74bfd76c9ed25bf67f47508".as_ref()).unwrap(),
                                                 630839,
                              H256::from_str("0x25044c83970c7fa83e3356a3a7f1a67721dd20b674171842c5fc9bde5a05e6a6".as_ref()).unwrap(),
