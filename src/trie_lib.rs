@@ -170,7 +170,7 @@ mod tests {
         );
     }
 
-    #[test]
+   /* #[test]
     fn proof_non_inclusion_works1() {
         let pairs = vec![
             (hex!("00").to_vec(), hex!("280402000b20a1ff837d01").to_vec()),
@@ -206,5 +206,5 @@ mod tests {
             &[(hex!("00").to_vec(), None)],
         ).is_ok()
         );
-    }
+    }*/
 }
