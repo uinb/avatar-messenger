@@ -96,7 +96,7 @@ impl From<GetHeaderResponse> for Header{
         let block_number = u64::from_str_radix(bn_str, 16).unwrap();
         let header = Header::new(H256::from_str(r.parent_hash.as_ref()).unwrap(),
                                  block_number,
-                                 H256::from_str(r.stateRoot.as_ref()).unwrap(),
+                                 H256::from_str(r.state_root.as_ref()).unwrap(),
                                  H256::from_str(r.extrinsics_root.as_ref()).unwrap(), digest);
         header
     }
